@@ -11,6 +11,18 @@ const Cities = () => {
       .then(allData => setData(allData))
    }, []);
 
+   // const api={
+   //    key:"e6a10a0e71854dc5e3542f780cd86a9a",
+   //    base:"https://api.openweathermap.org/data/2.5/"
+   //  }
+
+   
+
+   // const handleCitieswaether=()=>{
+   //    fetch(`${api.base}weather?q=${data?.name}$units=metric&APPID=${api.key}`)
+ 
+   // }
+
    return (
       <div>
          <div className="overflow-x-auto">
@@ -18,13 +30,13 @@ const Cities = () => {
                <thead>
                   <tr className="bg-[#333333] text-white">
                      <th className="py-3 px-6 text-left border-b">Country Name</th>
-                     <th className="py-3 px-6 text-left border-b">City Name</th>
+                     <th  className="py-3 px-6 text-left border-b">City Name</th>
                      <th className="py-3 px-6 text-left border-b">Timezoon</th>
                      <th className="py-3 px-6 border-b text-end">Country Code</th>
                   </tr>
                </thead>
                <tbody>
-                  {data?.map(item => <tr className="hover:bg-gray-50 transition duration-300" key={item?.geoname_id}><CityesPart item={item} /></tr>)}
+                  {data?.map(item => <tr className="hover:bg-gray-50 transition duration-300" key={item?.geoname_id}><CityesPart  item={item} /></tr>)}
                </tbody>
             </table>
          </div>

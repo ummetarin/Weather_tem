@@ -8,6 +8,7 @@ import {
 import "./index.css";
 import Home from './Components/Home/Home';
 import Cities from './Components/Cities/Cities';
+import Weatherpage from './Components/WeatherPage/Weatherpage';
 
 
 const router = createBrowserRouter([
@@ -18,6 +19,9 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<Cities></Cities>
+      },{
+        path:"/weather/:city",
+        element:<Weatherpage></Weatherpage>
       }
     ]
   },
