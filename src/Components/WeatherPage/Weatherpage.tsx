@@ -8,11 +8,9 @@ const Weatherpage = () => {
   const{city}=useParams()
   console.log(city);
   const [weatherData, setWeatherData] = useState([]);
+  const [backgroundImage, setBackgroundImage] = useState("");
 
-  const handletoggle=()=>{
-    console.log(true);
-  }
-
+ 
   const api={
     key:"e6a10a0e71854dc5e3542f780cd86a9a",
     base:"https://api.openweathermap.org/data/2.5/"
@@ -34,16 +32,49 @@ const Weatherpage = () => {
     return kelvin - 273.15;
   };
 
+  const handletoggle=()=>{
+    console.log("hddguyd");
+  }
+
+
+  useEffect(() => {
+    if (weatherData && weatherData.weather && weatherData.weather.length > 0) {
+      const weatherDescription = weatherData.weather[0].description.toLowerCase();
+      if (weatherDescription.includes("clear sky")) {
+        setBackgroundImage("url(https://i.ibb.co/PDPgvB7/images-15.jpg)");
+      } else if (weatherDescription.includes("light rain")) {
+        setBackgroundImage("url(https://i.ibb.co/j8RMzYn/9.jpg)");
+      } else if (weatherDescription.includes("overcast clouds")) {
+        setBackgroundImage("url(https://i.ibb.co/VCNjF1J/images-17.jpg)");
+      } else if (weatherDescription.includes("Few Clouds")) {
+        setBackgroundImage("url(https://i.ibb.co/gTXPfvg/images-13.jpg)");
+      } else if (weatherDescription.includes("Moderate Rain")) {
+        setBackgroundImage("url(https://i.ibb.co/RykPd11/images-12.jpg)");
+      }
+      else if (weatherDescription.includes("broken clouds")) {
+        setBackgroundImage("url(https://i.ibb.co/2Ws4rWM/images-16.jpg)");
+      }
+      else if (weatherDescription.includes("scattered clouds")) {
+        setBackgroundImage("url(https://i.ibb.co/5R429ZP/scattered-clouds-in-the-sky-indicating-a-change-in-weather-free-photo.jpg)");
+      }
+      else if (weatherDescription.includes("sunny")) {
+        setBackgroundImage("url(https://i.ibb.co/QcZtKf1/images-14.jpg)");
+      }
+      else {
+        setBackgroundImage("url(https://i.ibb.co/2sLZSvN/overcast-clouds-mist-daylight.jpg)");
+      }
+    }
+  }, [weatherData]);
+
 
 
   return (
     <div className="flex justify-center py-12">
 
-    <div className=" w-[650px]   h-[400px]" style={{
-            backgroundImage:
-              "url(https://i.ibb.co/5sfgJ4H/istockphoto-947314334-612x612.jpg)",
+    <div className=" w-[750px]   h-[400px]" style={{
+            backgroundImage:backgroundImage,backgroundSize: 'cover',  backgroundPosition: 'center'
           }}>
-     <div className="flex flex-row justify-around items-center">
+     <div className="flex flex-row text-white justify-around items-center">
 
       <div>
       <h1 className="mb-6 pt-20 text-4xl font-bold">
@@ -69,53 +100,7 @@ const Weatherpage = () => {
 
 
     </div>
-
-
-
-
-      {/* <div className="px-36 py-12">
-        <div
-          className="hero h-[400px] "
-          style={{
-            backgroundImage:
-              "url(https://i.ibb.co/5sfgJ4H/istockphoto-947314334-612x612.jpg)",
-          }}
-        >
-          <div className="flex md:flex-row ">
-          <div>
-<h1>gagga</h1>
-          </div>
-          <div>
-<h1>uhuhu</h1>
-          </div>
-
-          </div>
-          
-          {/* <div className=" flex flex-row   text-white">
-            <div className="">
-          <div className="pb-6">
-          <h1 className="text-3xl font-bold flex items-center gap-6 ">{weatherData?.wind?.deg} Deg <FaTemperatureLow /></h1>
-          </div>
-              <h1 className="mb-5 text-4xl font-bold">{weatherData?.name}</h1>
-              <p className="mb-5">
-               {weatherData?.main?.temp}
-              </p>
-              <h1><RiHeartAddLine className="text-3xl"></RiHeartAddLine></h1>
-            </div>
-            <div className="w-[50%]">
-                {/* <h1 className="text-xl py-1 font-medium">Weather : {weatherData?.weather[0].description}</h1> */}
-                {/* <h1 className="text-xl py-1 font-medium">Wind Speed : {weatherData?.wind?.speed}</h1>
-                <h1 className="text-xl py-1 font-medium">Humadity : {weatherData?.main?.humidity}</h1>
-                <h1 className="text-xl py-1 font-medium">Sunrise : {weatherData?.sys?.sunrise}</h1>                
-                <h1 className="text-xl py-1 font-medium">Sunset : {weatherData?.sys?.sunset}</h1>                
-
-
-
-             
-            </div>
-          </div>  */}
-        {/* </div>
-      </div> */} 
+ 
     </div>
   );
 };
