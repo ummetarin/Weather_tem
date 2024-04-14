@@ -9,6 +9,7 @@ import "./index.css";
 import Home from './Components/Home/Home';
 import Cities from './Components/Cities/Cities';
 import Weatherpage from './Components/WeatherPage/Weatherpage';
+import Favouriteitems from './Components/Favoriteitems/Favouriteitems';
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,9 @@ const router = createBrowserRouter([
       },{
         path:"/weather/:city",
         element:<Weatherpage></Weatherpage>
+      },{
+        path:"/fav",
+        element:<Favouriteitems></Favouriteitems>
       }
     ]
   },

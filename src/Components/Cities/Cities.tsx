@@ -13,6 +13,7 @@ const Cities = () => {
       .then(res => res.json())
       .then(allData => setData(allData))
    }, []);
+   console.log(data);
 
    const handlelick=()=>{
       const filterdata=data.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()));
