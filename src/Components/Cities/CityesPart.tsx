@@ -5,24 +5,7 @@ import { Link } from "react-router-dom";
 
 const CityesPart = ({ item }) => {
 
-  // const [weatherData, setWeatherData] = useState(null);
 
-  // const api={
-  //   key:"e6a10a0e71854dc5e3542f780cd86a9a",
-  //   base:"https://api.openweathermap.org/data/2.5/"
-  // }
-
- 
-  // const handleCitiesWeather = (cityname) => {
-  //   fetch(`${api.base}weather?q=${item.name}&appid=${api.key}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setWeatherData(data)
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching weather data:', error);
-  //     });
-  // };
   
 
   return (

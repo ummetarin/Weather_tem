@@ -64,6 +64,9 @@ const Weatherpage = () => {
         setBackgroundImage("url(https://i.ibb.co/2sLZSvN/overcast-clouds-mist-daylight.jpg)");
       }
     }
+    else{
+      setBackgroundImage("url(https://i.ibb.co/7SvTSrK/1-bq2-Kfw7h-VXwu-Wm9-GQXGZw.png)");
+    }
   }, [weatherData]);
 
 
