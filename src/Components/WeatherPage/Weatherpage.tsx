@@ -33,18 +33,19 @@ const Weatherpage = () => {
   };
 
 const handletoggle = () => {
-  // Check if the browser supports local storage
   if (typeof localStorage !== 'undefined') {
-    // Retrieve the stored cities from local storage, or create an empty array if no data is stored
     let storedCities = JSON.parse(localStorage.getItem('cities')) || [];
-    // Check if the current city is already stored in the list of cities
     const cityIndex = storedCities.findIndex(cityItem => cityItem.name === weatherData.name);
-    // If the city is not stored, add it to the list along with its temperature
     if (cityIndex === -1) {
       storedCities.push({ name: weatherData.name, temp: convertKelvinToCelsius(weatherData.main?.temp).toFixed(2) });
-      // Update the list of cities in local storage
       localStorage.setItem('cities', JSON.stringify(storedCities));
-      // Display a message to inform the user
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Added To Favourite Lists",
+        showConfirmButton: false,
+        timer: 1500
+      });
       alert(`Added ${weatherData.name} to favorites!`);
     } else { // If the city is already stored, remove it from the list
       storedCities.splice(cityIndex, 1);
