@@ -32,9 +32,32 @@ const Weatherpage = () => {
     return kelvin - 273.15;
   };
 
-  const handletoggle=()=>{
-    console.log("hddguyd");
+const handletoggle = () => {
+  // Check if the browser supports local storage
+  if (typeof localStorage !== 'undefined') {
+    // Retrieve the stored cities from local storage, or create an empty array if no data is stored
+    let storedCities = JSON.parse(localStorage.getItem('cities')) || [];
+    // Check if the current city is already stored in the list of cities
+    const cityIndex = storedCities.findIndex(cityItem => cityItem.name === weatherData.name);
+    // If the city is not stored, add it to the list along with its temperature
+    if (cityIndex === -1) {
+      storedCities.push({ name: weatherData.name, temp: convertKelvinToCelsius(weatherData.main?.temp).toFixed(2) });
+      // Update the list of cities in local storage
+      localStorage.setItem('cities', JSON.stringify(storedCities));
+      // Display a message to inform the user
+      alert(`Added ${weatherData.name} to favorites!`);
+    } else { // If the city is already stored, remove it from the list
+      storedCities.splice(cityIndex, 1);
+      // Update the list of cities in local storage
+      localStorage.setItem('cities', JSON.stringify(storedCities));
+      // Display a message to inform the user
+      alert(`Removed ${weatherData.name} from favorites!`);
+    }
+  } else { // If local storage is not supported, show an alert
+    alert('Local storage is not supported in your browser!');
   }
+};
+
 
 
   useEffect(() => {
@@ -45,7 +68,7 @@ const Weatherpage = () => {
       } else if (weatherDescription.includes("light rain")) {
         setBackgroundImage("url(https://i.ibb.co/j8RMzYn/9.jpg)");
       } else if (weatherDescription.includes("overcast clouds")) {
-        setBackgroundImage("url(https://i.ibb.co/VCNjF1J/images-17.jpg)");
+        setBackgroundImage("url(https://i.ibb.co/0GK4Gd0/picture-cloudy-sky-with-overcast-sun-125540-2438.jpg)");
       } else if (weatherDescription.includes("Few Clouds")) {
         setBackgroundImage("url(https://i.ibb.co/gTXPfvg/images-13.jpg)");
       } else if (weatherDescription.includes("Moderate Rain")) {
