@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaTemperatureLow } from "react-icons/fa6";
 import { RiHeartAddLine } from "react-icons/ri";
+import { IoIosHeartDislike } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const Weatherpage = () => {
   
@@ -9,6 +11,7 @@ const Weatherpage = () => {
   console.log(city);
   const [weatherData, setWeatherData] = useState([]);
   const [backgroundImage, setBackgroundImage] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
 
  
   const api={
@@ -33,6 +36,7 @@ const Weatherpage = () => {
   };
 
 const handletoggle = () => {
+  setIsFavorite(!isFavorite);
   if (typeof localStorage !== 'undefined') {
     let storedCities = JSON.parse(localStorage.getItem('cities')) || [];
     const cityIndex = storedCities.findIndex(cityItem => cityItem.name === weatherData.name);
@@ -46,13 +50,16 @@ const handletoggle = () => {
         showConfirmButton: false,
         timer: 1500
       });
-      alert(`Added ${weatherData.name} to favorites!`);
-    } else { // If the city is already stored, remove it from the list
+    } else { 
       storedCities.splice(cityIndex, 1);
-      // Update the list of cities in local storage
       localStorage.setItem('cities', JSON.stringify(storedCities));
-      // Display a message to inform the user
-      alert(`Removed ${weatherData.name} from favorites!`);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Removed From Favourite Lists",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   } else { // If local storage is not supported, show an alert
     alert('Local storage is not supported in your browser!');
@@ -110,7 +117,7 @@ const handletoggle = () => {
           
               <h1 className="mb-3 text-2xl font-bold">{weatherData?.name}</h1>
               <h1 className="text-xl pt-3 font-bold flex items-center gap-6 pb-4 ">Wind temp : {weatherData?.wind?.deg} Deg <FaTemperatureLow /></h1>
-              <h1 onClick={handletoggle}><RiHeartAddLine className="text-3xl"></RiHeartAddLine></h1>
+              <h1 onClick={handletoggle}>{isFavorite?<><IoIosHeartDislike className="text-3xl" /></>:<><RiHeartAddLine className="text-3xl"></RiHeartAddLine></>}</h1>
       </div>
       <div className="mt-20">
               <h1 className="text-xl py-1 font-medium">Weather : {weatherData && weatherData.weather && weatherData.weather.length > 0 ? weatherData.weather[0].description : 'Loading...'}</h1>
